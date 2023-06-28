@@ -1,6 +1,22 @@
-{#
-For guidance on how to use layouts see:
-https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
-#}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 {% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+{% block header %}
+    {{ govukHeader({
+    homepageUrl: "/",
+    serviceName: serviceName,
+    serviceUrl: "/"
+    }) }}
+    <div">
+        <div class="govuk-phase-banner govuk-header__container govuk-width-container">
+            <p class="govuk-phase-banner__content">
+            <strong class="govuk-tag govuk-phase-banner__content__tag">
+                Beta
+            </strong>
+            <span class="govuk-phase-banner__text">
+                This is a new service – your <a class="govuk-link" href="https://customerhelp.landregistry.gov.uk/complaintswebform/">feedback</a> will help us to improve it.
+            </span>
+            </p>
+        </div>
+    </div>
+{% endblock %}
