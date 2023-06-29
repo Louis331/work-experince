@@ -1,0 +1,88 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">Check your answers before sending your details</h1>
+        <h2 class="govuk-heading-m">Your details</h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Name
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ data['full-name']}}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="name">
+                Change<span class="govuk-visually-hidden"> name</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Land details
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if data['address-line-1'] %}
+                {{ data['address-line-1'] }}<br>
+                {% if data['address-line-2'] %}
+                  {{ data['address-line-2'] }}<br>
+                {% endif %}
+                {{ data['address-town'] }}<br>
+                {% if data['address-county'] %}
+                  {{ data['address-county'] }}<br>
+                {% endif %}
+                {{ data['address-postcode'] }}<br>
+              {% else %}
+                {{ data['land-description'] }}
+              {% endif %}
+
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="postal-address">
+                Change<span class="govuk-visually-hidden"> land details</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Contact
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {% if data['contact-by-email'] %}
+                {{ data['contact-by-email'] }}
+              {% else %}
+                {{ data['contact-by-phone'] }}
+              {% endif %}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="contact">
+                Change<span class="govuk-visually-hidden"> contact details</span>
+              </a>
+            </dd>
+          </div>
+        </dl>
+        <h2 class="govuk-heading-m">Now send your details</h2>
+        <p class="govuk-body">By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+        <form action="/check-your-answers" method="post" novalidate>
+          <input type="hidden" name="answers-checked" value="true">
+          <button class="govuk-button" data-module="govuk-button">
+            Accept and send
+          </button>
+        </form>
+
+    </div>
+  </div>
+{% endblock %}

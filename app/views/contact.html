@@ -1,0 +1,138 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if data['contact-error'] or data['email-error'] or data['phone-error'] %}
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+          <div role="alert">
+            <h2 class="govuk-error-summary__title">
+              There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+              <ul class="govuk-list govuk-error-summary__list">
+                {% if data['contact-error'] %}
+                  <li>
+                    <a href="#contact-error">{{ data['contact-error'] }}</a>
+                  </li>
+                {% endif %}
+                {% if data['email-error'] %}
+                  <li>
+                    <a href="#contact-by-email">{{ data['email-error'] }}</a>
+                  </li>
+                {% endif %}
+                {% if data['phone-error'] %}
+                  <li>
+                    <a href="#contact-by-phone">{{ data['phone-error'] }}</a>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      <form class="form" action="/contact" method="post">
+
+        <div class="govuk-form-group {% if data['contact-error'] %}govuk-form-group--error{% endif %}">
+          <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                How can we contact you?
+              </h1>
+            </legend>
+            <p>We will only contact you when necessary.</p>
+            {% if data['contact-error'] %}
+              <p id="contact-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> {{ data['contact-error'] }}
+              </p>
+            {% endif %}
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input"
+                       id="contact"
+                       name="contact"
+                       type="radio"
+                       value="email"
+                       data-aria-controls="conditional-contact"
+                       {% if data['contact'] == 'email' %}checked='checked'{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="contact">
+                  Email
+                </label>
+              </div>
+              <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact">
+                <div class="govuk-form-group {% if data['email-error'] %}govuk-form-group--error{% endif %}">
+                  <label class="govuk-label" for="contact-by-email">
+                    Enter an email address
+                  </label>
+                  <p class="govuk-hint">We will use this email address to contact you</p>
+                  {% if data['email-error'] %}
+                    <p class="govuk-error-message">
+                      <span class="govuk-visually-hidden">Error:</span> {{ data['email-error'] }}
+                    </p>
+                  {% endif %}
+                  <input class="govuk-input govuk-input--width-20 {% if data['email-error'] %}govuk-input--error{% endif %}"
+                         id="contact-by-email"
+                         name="contact-by-email"
+                         type="email"
+                         spellcheck="false"
+                         autocomplete="email"
+                         vaule="{{data['contact-by-email']}}">
+                </div>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input"
+                       id="contact-2"
+                       name="contact"
+                       type="radio"
+                       value="phone"
+                       data-aria-controls="conditional-contact-2"
+                       {% if data['contact'] == 'phone' %}checked='checked'{% endif %}>
+                <label class="govuk-label govuk-radios__label" for="contact-2">
+                  Telephone
+                </label>
+              </div>
+              <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-2">
+                <div class="govuk-form-group {% if data['phone-error'] %}govuk-form-group--error{% endif %}">
+                  <label class="govuk-label" for="contact-by-phone">
+                    Enter a telephone number
+                  </label>
+                  <p class="govuk-hint">We will use this telephone number to contact you</p>
+                  {% if data['phone-error'] %}
+                    <p class="govuk-error-message">
+                      <span class="govuk-visually-hidden">Error:</span> {{ data['phone-error'] }}
+                    </p>
+                  {% endif %}
+                  <input class="govuk-input govuk-input--width-20 {% if data['phone-error'] %}govuk-input--error{% endif %}"
+                         id="contact-by-phone"
+                         name="contact-by-phone"
+                         type="tel"
+                         autocomplete="tel"
+                         vaule="{{data['contact-by-phone']}}">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <button class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
