@@ -14,7 +14,7 @@ router.post('/name', function(request, response){
     if ( fullname.length  > 0) {
         response.redirect('/')
     } else {
-        request.session.data['name-error'] = true
-        response.render('name')
+        request.session.data['name-error'] = 'Enter your full name'
+        response.redirect('name')
     }
 })
