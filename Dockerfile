@@ -1,7 +1,7 @@
 FROM node:18
 
 # Create app directory
-RUN 777 /usr/src/app
+RUN chmod 777 /usr/src/app
 WORKDIR /usr/src/app
 
 # Install app dependencies
