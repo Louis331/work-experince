@@ -1,8 +1,8 @@
 FROM node:18
 
 # Create app directory
+RUN 777 /usr/src/app
 WORKDIR /usr/src/app
-RUN mkdir .tmp
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
