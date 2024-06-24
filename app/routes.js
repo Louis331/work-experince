@@ -134,3 +134,5 @@ router.post('/check-your-answers', function(request, response){
 
     response.redirect('submitted')
 })
+
+module.exports = router;
