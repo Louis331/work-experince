@@ -2,6 +2,7 @@ FROM node:18
 
 # Create app directory
 WORKDIR /usr/src/app
+RUN chmod 777 /usr/src/app
 
 RUN mkdir .tmp
 
