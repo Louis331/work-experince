@@ -16,7 +16,7 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-ENV NODE_ENV='production' \
+ENV NODE_ENV='development' \
   PASSWORD='we'
-EXPOSE 5000
-CMD [ "npm", "start" ]
+EXPOSE 3000
+CMD [ "npm", "run", "dev" ]
