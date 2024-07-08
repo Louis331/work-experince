@@ -2,7 +2,7 @@ FROM node:18
 
 # Create app directory
 WORKDIR /usr/src/app
-
+RUN chmod 777 /usr/src/app
 RUN mkdir .tmp
 
 # Install app dependencies
@@ -16,7 +16,7 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-ENV NODE_ENV='production' \
+ENV NODE_ENV='development' \
   PASSWORD='we'
 EXPOSE 3000
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "dev" ]
